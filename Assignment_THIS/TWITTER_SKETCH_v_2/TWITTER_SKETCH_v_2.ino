@@ -5,10 +5,10 @@
 #include <ArduinoJson.h>
 
 int fsrReading;
-int fsrPin = 0
+int fsrPin = 0;
 
-#define firebaseURL
-#define authCode
+#define firebaseURL;
+#define authCode;
 
 char ssid[] = "VIDEOTRON3680";
 char pass[] = "504w4ke334";
@@ -33,14 +33,14 @@ void setup()
 void loop()
 {
 
-  srReading = analogRead(fsrPin);
+  fsrReading = analogRead(fsrPin);
 
   Serial.print("Analog reading = ");
   Serial.print(fsrReading);     // the raw analog reading
 
   Serial.println("connecting ...");
 
-  if (fsrReading < 100) {
+  if (fsrReading < 350 ) {
 
     if (twitter.post(msg1)) {
 
@@ -55,37 +55,37 @@ void loop()
       Serial.println("connection failed.");
     }
   }
-} else if (fsrReading < 200) {
-  if (twitter.post(msg2)) {
+  else if (fsrReading > 350 && fsrReading < 750 ) {
+    if (twitter.post(msg2)) {
 
-    int status = twitter.wait(&Serial);
-    if (status == 200) {
-      Serial.println("OK.");
+      int status = twitter.wait(&Serial);
+      if (status == 200) {
+        Serial.println("OK.");
+      } else {
+        Serial.print("failed : code ");
+        Serial.println(status);
+      }
     } else {
-      Serial.print("failed : code ");
-      Serial.println(status);
+      Serial.println("connection failed.");
     }
-  } else {
-    Serial.println("connection failed.");
   }
-}
-} else if (fsrReading > 200) ||  {
-  if (twitter.post(msg3)) {
+  else if (fsrReading > 750) {
+    if (twitter.post(msg3)) {
 
-    int status = twitter.wait(&Serial);
-    if (status == 200) {
-      Serial.println("OK.");
+      int status = twitter.wait(&Serial);
+      if (status == 200) {
+        Serial.println("OK.");
+      } else {
+        Serial.print("failed : code ");
+        Serial.println(status);
+      }
     } else {
-      Serial.print("failed : code ");
-      Serial.println(status);
+      Serial.println("connection failed.");
     }
-  } else {
-    Serial.println("connection failed.");
   }
-}
 
 }
-}
+
 
 
 
